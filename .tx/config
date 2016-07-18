@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[edx-platform.marketing_site]
+file_filter = marketing_site/conf/locale/<lang>/LC_MESSAGES/django.po
+source_file = marketing_site/conf/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO
+
+[edx-platform.marketing_site-js]
+file_filter = marketing_site/conf/locale/<lang>/LC_MESSAGES/djangojs.po
+source_file = marketing_site/conf/locale/en/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO

@@ -1,0 +1,8 @@
+# Packages required for local development
+-r test.txt
+-r docs.txt
+
+django-debug-toolbar
+docker-compose >= 1.7.1
+git+https://github.com/edx/i18n-tools.git@v0.3.2#egg=i18n_tools==0.3.2
+transifex-client

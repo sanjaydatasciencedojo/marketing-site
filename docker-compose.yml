@@ -1,0 +1,25 @@
+db:
+  image: mysql:5.6
+  container_name: db
+  environment:
+    MYSQL_ROOT_PASSWORD: ""
+    MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+memcache:
+  image: memcached:1.4.24
+  container_name: memcache
+
+marketing_site:
+  # Uncomment this line to use the official marketing_site base image
+  image: marketing_site:v1
+
+  # Uncomment the next two lines to build from a local configuration repo
+  #build: ../configuration
+  #dockerfile: docker/build/marketing_site/Dockerfile
+
+  container_name: marketing_site
+  volumes:
+    - .:/edx/app/marketing_site/marketing_site
+  command: /edx/app/marketing_site/devstack.sh start
+  ports:
+    - "8005:8005" # TODO: change this to your port

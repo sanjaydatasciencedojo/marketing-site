@@ -1,0 +1,12 @@
+[run]
+branch = True
+data_file = .coverage
+source=marketing_site
+omit =
+    marketing_site/settings*
+    marketing_site/conf*
+    *wsgi.py
+    *migrations*
+    *admin.py
+    *static*
+    *templates*
