@@ -12,7 +12,7 @@ SECRET_KEY = os.environ.get('MARKETING_SITE_SECRET_KEY', 'insecure-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['testserver']
 
 # Application definition
 
@@ -45,6 +45,8 @@ THIRD_PARTY_APPS = (
     'wagtailmenus',
     'modelcluster',
     'taggit',
+    'bakery',
+    'wagtailbakery',
 )
 
 PROJECT_APPS = (
@@ -247,3 +249,21 @@ LOGGING = {
 }
 
 WAGTAIL_SITE_NAME = 'Your Site Name Here'
+
+# BEGIN Django Bakery Settings #
+ALLOW_BAKERY_AUTO_PUBLISHING = False
+
+BAKERY_CACHE_CONTROL = {
+    'application/javascript': 31536000,
+    # TODO Determine an adequate cache time for HTML pages
+    'text/html': 300,
+    'text/css': 31536000,
+}
+
+BAKERY_VIEWS = (
+    'marketing_site.apps.core.views.PageNotFoundView',
+    'marketing_site.apps.edx.pages.bakery_views.HomePageStatic',
+)
+
+BUILD_DIR = root('static-site-output')
+# END Django Bakery Settings #

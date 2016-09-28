@@ -13,3 +13,4 @@ edx.org Marketing Site
    testing
    features
    internationalization
+   static_site
