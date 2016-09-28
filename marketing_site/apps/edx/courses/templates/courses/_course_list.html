@@ -1,0 +1,16 @@
+{% for course in courses %}
+    <div class="media course-list-course">
+        <div class="media-left">
+            <a href="{% url 'courses:detail' pk=course.key %}">
+                <img class="media-object image" src="{{ course.image.src }}" alt="{{ course.title }}">
+            </a>
+        </div>
+        <div class="media-body">
+            <h4 class="media-heading">
+                <a href="{% url 'courses:detail' pk=course.key %}">{{ course.key }}: {{ course.title }}</a>
+            </h4>
+            {{ course.short_description|safe }}
+        </div>
+    </div>
+{% endfor %}
+

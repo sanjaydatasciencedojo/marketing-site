@@ -1,0 +1,10 @@
+<html>
+  <head>
+    <title>{{ organization.key }}</title>
+  </head>
+  <body>
+    <h1>{{ organization.key }}</h1>
+
+    {% include 'courses/_course_list.html' with courses=organization.courses %}
+  </body>
+</html>

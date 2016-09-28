@@ -1,0 +1,73 @@
+$course-run-padding-base-vertical: $padding-large-vertical * 2;
+
+.affix {
+  top: 0;
+  width: 100%;
+}
+
+.course-detail {
+  .course-header {
+    margin-bottom: $padding-large-vertical;
+
+    .course-image {
+      max-width: 100%;
+    }
+    .course-title {
+      margin-top: 0;
+    }
+
+    .course-level-type, .course-subjects {
+      display: inline-block;
+    }
+    .course-subjects {
+      margin-bottom: $padding-large-vertical;
+    }
+    .authoring-organizations {
+      margin-bottom: $padding-large-vertical;
+    }
+  }
+
+  .course-run-selectors {
+    margin-bottom: $course-run-padding-base-vertical;
+
+    @media (max-width: $screen-sm-min) {
+      > li {
+        float: none;
+        > a {
+          text-align: center;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    > li {
+      margin-right: $padding-xs-horizontal;
+    }
+  }
+
+  .course-run {
+    .course-run-description,
+    .course-run-table,
+    .course-run-syllabus,
+    .enrollment-button {
+      margin-bottom: $course-run-padding-base-vertical * 2;
+    }
+
+    .enrollment-button {
+      font-size: $font-size-h1;
+    }
+    .course-run-table {
+      width: auto;
+    }
+
+    .staff-list {
+      .heading {
+        margin-top: 0;
+        font-weight: normal;
+      }
+      .staff-member {
+        margin-bottom: $course-run-padding-base-vertical;
+      }
+    }
+  }
+}

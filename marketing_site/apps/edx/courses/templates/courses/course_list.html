@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ courses|length }} Courses
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ courses|length }} Courses</h1>
+
+    {% include 'courses/_course_list.html' %}
+{% endblock content %}
+

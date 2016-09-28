@@ -24,8 +24,15 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 
 from marketing_site.apps.core import views as core_views
+from marketing_site.apps.edx.courses import views as edx_views
+from marketing_site.apps.edx.courses.constants import COURSE_ID_REGEX
 
 admin.autodiscover()
+
+course_urlpatterns = [
+    url(r'^$', edx_views.CourseListView.as_view(), name='list'),
+    url(r'^(?P<pk>{})/$'.format(COURSE_ID_REGEX), edx_views.CourseDetailView.as_view(), name='detail'),
+]
 
 urlpatterns = auth_urlpatterns + [
     url(r'^admin/', include(admin.site.urls)),
@@ -35,7 +42,8 @@ urlpatterns = auth_urlpatterns + [
     url(r'^auto_auth/$', core_views.AutoAuth.as_view(), name='auto_auth'),
     url(r'^health/$', core_views.health, name='health'),
     url(r'^cms/', include(wagtailadmin_urls)),
-    url('^sitemap\.xml$', sitemap),
+    url(r'courses/', include(course_urlpatterns, namespace='courses')),
+    url(r'^sitemap\.xml$', sitemap),
     url(r'', include(wagtail_urls)),
 ]
 
