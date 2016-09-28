@@ -53,6 +53,7 @@ PROJECT_APPS = (
     'marketing_site.apps.core',
     'marketing_site.apps.api',
     'marketing_site.apps.edx.pages',
+    'marketing_site.apps.edx.courses',
 )
 
 INSTALLED_APPS += THIRD_PARTY_APPS
@@ -248,6 +249,8 @@ LOGGING = {
     }
 }
 
+DISCOVERY_API_URL = 'https://localhost:8008/api/v1/'
+
 WAGTAIL_SITE_NAME = 'Your Site Name Here'
 
 # BEGIN Django Bakery Settings #
@@ -263,6 +266,8 @@ BAKERY_CACHE_CONTROL = {
 BAKERY_VIEWS = (
     'marketing_site.apps.core.views.PageNotFoundView',
     'marketing_site.apps.edx.pages.bakery_views.HomePageStatic',
+    'marketing_site.apps.edx.courses.views.CourseListView',
+    'marketing_site.apps.edx.courses.views.CourseDetailView',
 )
 
 BUILD_DIR = root('static-site-output')

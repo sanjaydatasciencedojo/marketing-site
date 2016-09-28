@@ -1,18 +1,3 @@
-"""marketing_site URL Configuration
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Add an import:  from blog import urls as blog_urls
-    2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
-"""
-
 import os
 
 from auth_backends.urls import auth_urlpatterns
@@ -35,7 +20,8 @@ urlpatterns = auth_urlpatterns + [
     url(r'^auto_auth/$', core_views.AutoAuth.as_view(), name='auto_auth'),
     url(r'^health/$', core_views.health, name='health'),
     url(r'^cms/', include(wagtailadmin_urls)),
-    url('^sitemap\.xml$', sitemap),
+    url(r'courses/', include('marketing_site.apps.edx.courses.urls', namespace='courses')),
+    url(r'^sitemap\.xml$', sitemap),
     url(r'', include(wagtail_urls)),
 ]
 

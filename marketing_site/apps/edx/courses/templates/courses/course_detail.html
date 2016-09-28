@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}
+  {{ course.key }} | {{ course.title }}
+{% endblock title %}
+
+{% block content %}
+  <main class="course-detail">
+    <div class="course-header row">
+      <div class="col-md-4 col-xs-12">
+        <img src="{{ course.image.src }}" class="course-image"/>
+      </div>
+
+      <div class="col-md-8 col-xs-12">
+        <h1 class="course-title">{{ course.title|safe }}</h1>
+        <p class="course-short-description">{{ course.short_description|safe }}</p>
+        <div class="authoring-organizations text-center-xs text-center-sm"
+             aria-label="{% trans "authoring institutions" %}">
+          {% for authoring_organization in course.authoring_organizations %}
+            <a href="{{ authoring_organization.marketing_url }}">
+              <img class="authoring-organization" alt="{{ authoring_organization.name }}"
+                   src="{{ authoring_organization.logo_image_url }}">
+            </a>
+          {% endfor %}
+        </div>
+
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="course-run-selectors nav nav-pills" aria-label="{% trans "Select a course." %}">
+          {% for course_run in course.course_runs|dictsortreversed:'start' %}
+            <li role="presentation" class="{% if forloop.first %}active{% endif %}">
+              <a data-toggle="tab" href="#course-run-{{ forloop.counter }}" data-course-run-key="{{ course_run.key }}">
+                {% if course_run.is_self_paced %}
+                  {% blocktrans with start=course_run.start|date:'M j, Y' %}
+                    {{ course_run.start }}
+                    Self-paced (starts {{ start }})
+                  {% endblocktrans %}
+                {% else %}
+                  {% blocktrans with start=course_run.start|date:'M j, Y' %}
+                    {{ course_run.start }}
+                    Instructor-paced (starts {{ start }})
+                  {% endblocktrans %}
+                {% endif %}
+                {% if course_run.is_archived %}
+                  [{% trans "Archived" %}]
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="course-runs row">
+      <div class="tab-content ">
+        {% for course_run in course.course_runs|dictsortreversed:'start' %}
+          <div class="tab-pane {% if forloop.first %}active{% endif %}" id="course-run-{{ forloop.counter }}">
+            <div class="course-run">
+              <div class="col-md-9">
+                {% if course_run.is_archived %}
+                  <div class="alert alert-warning" role="alert">
+                    This course has been archived. You may still view the course content, but you will not be able to
+                    submit assignments or earn a certificate.
+                  </div>
+                {% endif %}
+                <div class="course-run-description">{{ course_run.full_description|safe }}</div>
+
+                <table class="table table-striped table-bordered course-run-table">
+                  <tbody>
+                    <tr>
+                      <td>Length</td>
+                      <td>
+                        8 weeks
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="col-md-3">Price</td>
+                      <td>
+                        {% if course_run.pricing.verified %}
+                          {{ course_run.pricing.verified.currency }}{{ course_run.pricing.verified.price }} for a
+                          verified
+                          certificate<br>
+                          {% if course_run.pricing.audit.price == 0 %}
+                            or try for free
+                          {% endif %}
+                        {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Level</td>
+                      <td>
+                        {{ course.level_type }}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{% blocktrans count counter=course.subjects|length %}
+                        Subject
+                      {% plural %}
+                        Subjects
+                      {% endblocktrans %}
+                      </td>
+                      <td>
+                        {% for subject in course.subjects %}
+                          <a href="/subjects/{{ subject.slug }}">{{ subject.name }}</a>
+                          {% if not forloop.last %}<br>{% endif %}
+                        {% endfor %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Language</td>
+                      {#                      <td>{{ course_run.content_language }}</td>#}
+                      <td>English</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Video Transcript Languages
+                        {#                        {% blocktrans count counter=course_run.transcript_languages|length %}#}
+                        {#                          Video Transcript Language#}
+                        {#                        {% plural %}#}
+                        {#                          Video Transcript Languages#}
+                        {#                        {% endblocktrans %}#}
+                      </td>
+                      <td>
+                        English<br>
+                        Chinese (Mandarin)
+                        {#                        {% for language in course_run.transcript_languages %}#}
+                        {#                          {{ language }}{% if not forloop.last %}<br>{% endif %}#}
+                        {#                        {% endfor %}#}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="course-run-syllabus">
+                  <h3>What You'll Learn</h3>
+                  <ul>
+                    <li>Knowledge of structure and function of human cells and tissues.</li>
+                    <li>Understanding of basic human anatomy and physiology.</li>
+                    <li>Preparation for study of health sciences and careers in health.</li>
+                  </ul>
+                </div>
+
+                <div data-spy="affix-top" data-offset-top="20">
+                  <button
+                    class="btn {% if not course_run.is_archived %}btn-success{% endif %} btn-large center-block enrollment-button">
+                    {% if course_run.is_archived %}
+                      View Archived Course
+                    {% else %}
+                      Enroll Now
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+
+              <div class="col-md-2 col-md-offset-1">
+                <div class="staff-list text-center-sm text-center-xs">
+                  <h4 class="heading">Instructors</h4>
+                  {% for staff in course_run.staff %}
+                    {% with staff.given_name|add:' '|add:staff.family_name as full_name %}
+                      <div class="staff-member">
+                        <a href="/bio/{{ staff.slug }}" target="_blank">
+                          <img src="{{ staff.profile_image_url }}"
+                               class="staff-member-photo img-rounded"
+                               alt="{% blocktrans %}Bio for {{ full_name }}{% endblocktrans %}">
+                        </a>
+                        <div class="staff-member-name">
+                          <a href="/bio/{{ staff.slug }}" target="_blank">{{ full_name }}</a>
+                        </div>
+                        <div class="staff-member-title">{{ staff.position.title }}</div>
+                        {% if  staff.position.organization_name %}
+                          <div class="staff-member-organization">{{ staff.position.organization_name }}</div>
+                        {% endif %}
+                      </div>
+                    {% endwith %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div></div>
+    </div>
+  </main>
+{% endblock content %}
