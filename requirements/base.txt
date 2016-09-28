@@ -8,4 +8,5 @@ edx-rest-api-client==1.7.1
 python-dateutil==2.6.1
 pytz==2017.3
 wagtail==1.13
+wagtail-bakery==0.1.0
 wagtailmenus==2.5.2

@@ -1,6 +1,5 @@
 """ Core views. """
 import logging
-import os
 import uuid
 
 from bakery.views import Buildable404View
@@ -11,7 +10,6 @@ from django.db import transaction, connection, DatabaseError
 from django.http import Http404
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.test import RequestFactory
 from django.views.generic import View
 from wagtail.wagtailcore.models import Site
 
@@ -91,27 +89,13 @@ class AutoAuth(View):
         return redirect('/')
 
 
-class BuildableTemplateViewMixin(object):
-    def prepare_request(self):
-        self.request.site = Site.objects.first()
-        self.request.user = AnonymousUser()
-
-    def build(self):
-        logger.info("Building %s...", self.template_name)
-        self.request = RequestFactory().get(self.build_path)
-        self.prepare_request()
-        path = os.path.join(settings.BUILD_DIR, self.build_path)
-        self.prep_directory(self.build_path)
-        self.build_file(path, self.get_content())
-        logger.info("Finished building %s.", self.template_name)
-
-    def build_object(self, obj):
-        self.request = RequestFactory().get(self.get_url(obj))
-        self.prepare_request()
-        self.set_kwargs(obj)
-        path = self.get_build_path(obj)
-        self.build_file(path, self.get_content())
+class CustomRequestMixin(object):
+    def create_request(self, path):
+        request = super(CustomRequestMixin, self).create_request(path)
+        request.site = Site.objects.first()
+        request.user = AnonymousUser()
+        return request
 
 
-class PageNotFoundView(BuildableTemplateViewMixin, Buildable404View):
+class PageNotFoundView(CustomRequestMixin, Buildable404View):
     pass

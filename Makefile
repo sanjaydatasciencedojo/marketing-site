@@ -78,3 +78,9 @@ open-devstack:
 
 pkg-devstack:
 	docker build -t marketing_site:latest -f docker/build/marketing_site/Dockerfile git://github.com/edx/configuration
+
+build:
+	python manage.py build
+
+publish:
+	python manage.py publish
