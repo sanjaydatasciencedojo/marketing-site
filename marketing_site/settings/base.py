@@ -6,7 +6,6 @@ here = lambda *x: join(abspath(dirname(__file__)), *x)
 PROJECT_ROOT = here("..")
 root = lambda *x: join(abspath(PROJECT_ROOT), *x)
 
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('MARKETING_SITE_SECRET_KEY', 'insecure-secret-key')
 
@@ -30,11 +29,28 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'social_django',
     'waffle',
+    'wagtail.wagtailforms',
+    'wagtail.wagtailredirects',
+    'wagtail.wagtailembeds',
+    'wagtail.wagtailsites',
+    'wagtail.wagtailusers',
+    'wagtail.wagtailsnippets',
+    'wagtail.wagtaildocs',
+    'wagtail.wagtailimages',
+    'wagtail.wagtailsearch',
+    'wagtail.wagtailadmin',
+    'wagtail.wagtailcore',
+    'wagtail.contrib.modeladmin',
+    'wagtail.contrib.wagtailsitemaps',
+    'wagtailmenus',
+    'modelcluster',
+    'taggit',
 )
 
 PROJECT_APPS = (
     'marketing_site.apps.core',
     'marketing_site.apps.api',
+    'marketing_site.apps.edx.pages',
 )
 
 INSTALLED_APPS += THIRD_PARTY_APPS
@@ -51,6 +67,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware',
     'waffle.middleware.WaffleMiddleware',
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
 
 ROOT_URLCONF = 'marketing_site.urls'
@@ -89,7 +107,6 @@ LOCALE_PATHS = (
     root('conf', 'locale'),
 )
 
-
 # MEDIA CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = root('media')
@@ -126,9 +143,11 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
+                'django.template.context_processors.request',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'wagtailmenus.context_processors.wagtailmenus',
                 'marketing_site.apps.core.context_processors.core',
             ),
             'debug': True,  # Django will only display debug pages if the global DEBUG setting is set to True.
@@ -226,3 +245,5 @@ LOGGING = {
         },
     }
 }
+
+WAGTAIL_SITE_NAME = 'Your Site Name Here'

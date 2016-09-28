@@ -18,8 +18,13 @@ class TestHealthView:
         """Test that the endpoint reports when all services are healthy."""
         self._assert_health(client, 200, Status.OK, Status.OK)
 
-    def test_database_outage(self, client):
+    def test_database_outage(self, client, settings):
         """Test that the endpoint reports when the database is unavailable."""
+        #  Wagtail's SiteMiddleware should be disabled for our database outage test since the middleware
+        # requires database access.
+        TEST_FRIENDLY_MIDDLEWARE_CLASSES = [mc for mc in settings.MIDDLEWARE_CLASSES if
+                                            mc != 'wagtail.wagtailcore.middleware.SiteMiddleware']
+        settings.MIDDLEWARE_CLASSES = TEST_FRIENDLY_MIDDLEWARE_CLASSES
         with mock.patch('django.db.backends.base.base.BaseDatabaseWrapper.cursor', side_effect=DatabaseError):
             self._assert_health(client, 503, Status.UNAVAILABLE, Status.UNAVAILABLE)
 

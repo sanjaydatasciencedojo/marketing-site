@@ -84,4 +84,5 @@ private.py
 
 docs/_build/
 node_modules/
-static/bower_components/
+marketing_site/static/bower_components/
+marketing_site/static-site-output/
