@@ -1,17 +1,21 @@
 """Test core.views."""
 
-from django.db import DatabaseError
+import mock
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.db import DatabaseError
 from django.test import TestCase
 from django.test.utils import override_settings
-import mock
 
 from marketing_site.apps.core.constants import Status
 
-
 User = get_user_model()
+
+# NOTE (CCB): Wagtail's SiteMiddleware should be disabled for our database outage test since the middleware
+# requires database access.
+TEST_FRIENDLY_MIDDLEWARE_CLASSES = [mc for mc in settings.MIDDLEWARE_CLASSES if
+                                    mc != 'wagtail.wagtailcore.middleware.SiteMiddleware']
 
 
 class HealthTests(TestCase):
@@ -21,6 +25,7 @@ class HealthTests(TestCase):
         """Test that the endpoint reports when all services are healthy."""
         self._assert_health(200, Status.OK, Status.OK)
 
+    @override_settings(MIDDLEWARE_CLASSES=TEST_FRIENDLY_MIDDLEWARE_CLASSES)
     def test_database_outage(self):
         """Test that the endpoint reports when the database is unavailable."""
         with mock.patch('django.db.backends.base.base.BaseDatabaseWrapper.cursor', side_effect=DatabaseError):

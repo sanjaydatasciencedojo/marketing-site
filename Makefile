@@ -31,10 +31,10 @@ clean:
 	rm -rf assets
 
 requirements:
-	pip install -qr requirements/local.txt --exists-action w
+	pip install -r requirements/local.txt --exists-action w
 
 prod-requirements:
-	pip install -qr requirements.txt --exists-action w
+	pip install -r requirements.txt --exists-action w
 
 test: clean
 	coverage run ./manage.py test marketing_site --settings=marketing_site.settings.test
