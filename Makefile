@@ -1,7 +1,10 @@
 .DEFAULT_GOAL := test
 
 .PHONY: clean compile_translations dummy_translations extract_translations fake_translations help html_coverage \
-	migrate pull_translations push_translations quality requirements test update_translations validate
+	migrate pull_translations push_translations quality requirements test update_translations validate static \
+	static.dev static.watch static.clean
+
+NODE_BIN=$(CURDIR)/node_modules/.bin
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -28,12 +31,14 @@ help:
 clean:
 	find . -name '*.pyc' -delete
 	coverage erase
-	rm -rf assets
+	rm -rf marketing_site/assets
 
 requirements:
+	npm install
 	pip install -r requirements/local.txt --exists-action w
 
 prod-requirements:
+	npm install
 	pip install -r requirements.txt --exists-action w
 
 test: clean
@@ -81,6 +86,20 @@ pkg-devstack:
 
 build:
 	python manage.py build
+	# Only deploy Webpack bundles to S3. If you're not using Webpack, you're doing it wrong!
+	cd marketing_site/static-site-output/static && find . ! -name '.' ! -name 'bundles' -type d -exec rm -rf {} +
 
 publish:
 	python manage.py publish
+
+static:
+	cd marketing_site && $(NODE_BIN)/webpack --config webpack.config.js --display-error-details --progress -p
+
+static.dev:
+	cd marketing_site && $(NODE_BIN)/webpack --config webpack.config.js --display-error-details --progress
+
+static.watch:
+	cd marketing_site && $(NODE_BIN)/webpack --config webpack.config.js --display-error-details --progress --watch
+
+static.clean:
+	rm -rf marketing_site/assets marketing_site/static/bundles

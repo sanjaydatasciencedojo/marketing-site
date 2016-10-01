@@ -84,5 +84,6 @@ private.py
 
 docs/_build/
 node_modules/
-marketing_site/static/bower_components/
+marketing_site/static/bundles/
 marketing_site/static-site-output/
+marketing_site/webpack-stats.json

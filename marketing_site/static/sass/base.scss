@@ -1,0 +1,15 @@
+$bootstrap-sass-asset-helper: true;
+
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import "bootstrap_responsive_align";
+
+@import "course/course_list";
+@import "course/course_detail";
+
+.nav-pills {
+  > li {
+    > a {
+      border: 1px solid $nav-tabs-border-color;
+    }
+  }
+}

@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
     'taggit',
     'bakery',
     'wagtailbakery',
+    'webpack_loader',
 )
 
 PROJECT_APPS = (
@@ -130,6 +131,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     root('static'),
 )
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': root('webpack-stats.json'),
+    }
+}
 
 # TEMPLATE CONFIGURATION
 # See: https://docs.djangoproject.com/en/1.8/ref/settings/#templates
