@@ -28,20 +28,29 @@ module.exports = {
         // compilation times), but results in significantly smaller CSS files. Consider disabling this plugin—-comment
         // out the instantiation below-—during development; but, remember to review your work with it enabled,
         // in case it is too aggressive and removes needed styles.
-        new PurifyPlugin({
-            basePath: __dirname,
-            paths: ['**/*.html'],
-            resolveExtensions: ['.html'],
-            purifyOptions: {
-                minify: true,
-                info: true,
-                rejected: true
-            }
-        })
+        // new PurifyPlugin({
+        //     basePath: __dirname,
+        //     paths: ['**/*.html'],
+        //     resolveExtensions: ['.html'],
+        //     purifyOptions: {
+        //         minify: true,
+        //         info: true,
+        //         rejected: true
+        //     }
+        // })
     ],
 
     module: {
         loaders: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                query: {
+                    cacheDirectory: true,
+                    presets: ['latest']
+                }
+            },
             {
                 test: /\.s?css$/,
                 loader: ExtractTextPlugin.extract({
