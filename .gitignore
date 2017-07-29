@@ -60,3 +60,6 @@ typings/
 
 # JetBrains
 .idea/
+
+public/stylesheets/*.css
+public/stylesheets/*.css.map
