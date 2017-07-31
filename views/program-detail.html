@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    @media only screen and (min-width: 726px) {
+        header.banner {
+            background-image: url('{{ program.banner_image.large.url }}');
+        }
+    }
+
+    @media only screen and (max-width: 726px) {
+        header.banner {
+            background-image: url('{{ program.banner_image.medium.url }}');
+        }
+    }
+
+    @media only screen and (max-width: 435px) {
+        header.banner {
+            background-image: url('{{ program.banner_image.small.url }}');
+        }
+    }
+
+    @media only screen and (max-width: 348px) {
+        header.banner {
+            background-image: url('{{ program.banner_image["x-small"].url }}');
+        }
+    }
+</style>
+<header class="banner">
+    <div class="col-wrapper">
+        <div class="col-6 text">
+            {% for authoring_organization in program.authoring_organizations %}
+            {% if authoring_organization.logo_image_url and authoring_organization.name %}
+            <div class="org-label">
+                <div class="org-logo">
+                    <img src="{{ authoring_organization.logo_image_url }}" alt="{{ authoring_organization.name }} Logo">
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-6 video-wrapper" role="group" aria-labelledby="program-title">
+            {% if program.video %}
+            <button class="js-play-video play-btn">
+                <span class="sr">{{ program.video.description }}</span>
+                <span class="icon fa fa-2x fa-play" aria-hidden="true"></span>
+            </button>
+            {% endif %}
+        </div>
+        <div class="col-6">
+            <h1 id="program-title">{{ program.title }}</h1>
+            {% if program.subtitle %}
+            <p class="banner-description">{{ program.subtitle }}</p>
+            {% endif %}
+            <div class="start-program-btn">
+                <a href="#courses" class="btn btn-blue">Start the {{ program.type }}</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="col-wrapper page-nav" aria-label="Page">
+    <ul>
+        <li class="col-4">
+            <a href="#courses"><%- gettext('View Courses') %></a>
+        </li>
+        <li class="col-4">
+            <a href="#instructors"><%- gettext('Meet the Instructors') %></a>
+        </li>
+        <li class="col-4">
+            <a class="capitalize" href="#why-this-program"><%- sprintf( gettext('The %(type)s'), {type: displayType})
+                %></a>
+        </li>
+    </ul>
+</nav>
+
+<div class="article col-wrapper">
+    <section class="main-content col-8">
+        <div class="overview">
+            <a href="<%- main.skipLink %>" class="element-invisible element-focusable"><%- sprintf( gettext('Skip the
+                %(type)s Main Overview'), {type: displayType}) %></a>
+            <div class="see-more-content" tabindex="-1">
+                <h3 class="program-logo-wrapper">
+                    <% if (programLogo) { %>
+                    <div class="program-logo"><%= programLogo %></div>
+                    <% } %>
+                    {% if program.type.toLowerCase() === 'xseries' %}
+                    <span class="program-logo-context"><%- gettext('A series of courses that add up to a rich understanding of an area of study.') %></span>
+                    {% elif program.type.toLowerCase() === 'micromasters' %}
+                    <span class="program-logo-context"><%- gettext('A series of credit-eligible courses recognized by industry.') %></span>
+                    {% elif program.type.toLowerCase() === 'professional certificate' %}
+                    <span class="professional-certificate-context program-logo-context"><%- gettext('A series of career-oriented courses to develop in-demand skills.') %></span>
+                    {% endif %}
+                </h3>
+                <div>{{ program.overview | safe }}</div>
+            </div>
+            <p class="see-more-cta" aria-hidden="true">
+                <a href="#" class="see-more-reveal">
+                <span class="see-more-label">
+                  <span aria-hidden="true" class="fa-stack fa-lg">
+                    <span class="fa fa-circle-o fa-stack-1x"></span>
+                    <span class="fa fa-plus fa-stack-1x"></span>
+                  </span>
+                  <%- gettext('See more') %>
+                  <span class="is-visually-hidden">
+                    <%- sprintf(gettext('about %(title)s'), {title: title}) %>
+                  </span>
+                </span>
+
+                    <span class="will-hide">
+                  <span aria-hidden="true" class="fa-stack fa-lg">
+                    <span class="fa fa-circle-o fa-stack-1x"></span>
+                    <span class="fa fa-minus fa-stack-1x"></span>
+                  </span>
+                  <%- gettext('Hide') %>
+                </span>
+                </a>
+            </p>
+        </div>
+
+        {% if program.job_outlook_items.length %}
+        <div id="job-outlook" class="job-outlook-items">
+            <h3>Job Outlook</h3>
+            <ul class="bullet-list">
+                {% for item in program.job_outlook_items %}
+                <li class="list-item">{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if program.corporate_endorsements.length %}
+        <div id="corporate-endorsements" class="corporate-endorsements">
+            <h3>Real Career Impact</h3>
+            {% for endorsement in program.corporate_endorsements %}
+            <div class="endorsement">
+                {% if endorsement.image %}
+                <div>
+                    <img src="{{ endorsement.image.src }}" alt="{{ endorsement.corporation_name }} Logo"
+                         width="{{ endorsement.image.width }}" height="{{ endorsement.image.height }}">
+                </div>
+                {% endif %}
+                <div>
+                    <h3>{{ endorsement.corporation_name }}</h3>
+                </div>
+                {% if endorsement.statement %}
+                <div>
+                    <span>{{ endorsement.statement }}</span>
+                </div>
+                {% endif %}
+                {% for individual_endorsement in endorsement.individual_endorsements %}
+                <div class="quote">
+                    <blockquote>
+                        <div class="quote-text">"{{ individual_endorsement.quote }}"</div>
+                        {% if individual_endorsement.endorser %}
+                        <div class="endorser">&mdash; {{ individual_endorsement.endorser.given_name }}
+                            {% if individual_endorsement.endorser.family_name %}
+                            {{ individual_endorsement.endorser.family_name }}
+                            {% endif %}
+                            {% if individual_endorsement.endorser.position and
+                            individual_endorsement.endorser.position.title %}
+                            {{ individual_endorsement.endorser.position.title }}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </blockquote>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if program.expected_learning_items.length %}
+        <div id="expected-learning" class="expected-learning-items">
+            <h3>What You'll Learn:</h3>
+            <ul class="bullet-list">
+                {% for item in program.expected_learning_items %}
+                <li class="list-item">{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+    </section>
+    <aside class="aside js-program-details-sidebar col-4"
+           aria-label="<%- sprintf( gettext('%(type)s Details'), {type: type}) %>"></aside>
+
+    <aside id="why-this-program" class="aside program-aside col-4"
+           aria-label="<%- sprintf( gettext('About %(type)s'), {type: type}) %>">
+        <h2><%- whyThisProgram.title %></h2>
+        <p><%- whyThisProgram.content %></p>
+        <a href="<%- whyThisProgram.cta.url %>"><%- whyThisProgram.cta.text %></a>
+    </aside>
+
+    <section id="courses" class="col-12 separator-top">
+        <h2><%- courseListTitle %></h2>
+        <ul>
+            {% for course in program.courses %}
+            <li>{{ course.key}}: {{ course.title }}</li>
+            {% endfor %}
+        </ul>
+        <% if (typeof discovery_cards.content !== 'undefined' && discovery_cards.content &&
+        discovery_cards.content.length > 0) { %>
+        <%= discovery_cards.content %>
+        <% } %>
+        <div class="js-discovery-card-list discovery-card-list"></div>
+    </section>
+    <section class="col-12 one-click-purchase">
+        <div class="start-program-btn-details"></div>
+    </section>
+    {% if program.staff %}
+    <section id="instructors" class="col-12 separator-top">
+        <h2><%- gettext('Instructors') %></h2>
+
+        <ul class="clear-list list-instructors clearfix">
+            {% for person in program.staff %}
+            <li class="list-instructor__item">
+                <a href="/bio/{{ person.slug }}">
+                    <img src="{{ person.profile_image_url }}"
+                         class="instructor-img"
+                         alt="<%- sprintf(gettext('bio for %(title)s'), {title: person.given_name + person.family_name}) %>"/>
+                    <p class="instructor-name" aria-hidden="true">{{ person.given_name}} {{ person.family_name }}</p>
+                </a>
+                {% if person.position %}
+                <p class="instructor-position">
+                    {% if person.position.title %}
+                    {{ person.position.title }}
+                    {% endif %}
+                    {% if person.position.organization_name %}
+                    <span class="instructor-org">{{ person.position.organization_name }}</span>
+                    {% endif %}
+                </p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+    <section class="col-12 separator-top why-this-program">
+        <div class="view-certificate">
+            <div class="certificate">
+                <a aria-hidden="true" href="/media/example-certificate-micromasters.pdf" class="img-link"
+                   target="_blank">
+                    <img src="https://www.edx.org/sites/all/themes/atedx/images/cert-selection.png"
+                         alt="<%- sprintf( gettext('View a PDF of a sample %(type)s Certificate'), {type: displayType}) %>">
+                </a>
+                <a href="/media/example-certificate-micromasters.pdf" target="_blank">View Sample Certificate</a>
+            </div>
+        </div>
+    </section>
+    {% if program.faq.length %}
+    <section class="col-12 separator-top program-lp-section faq-cols">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        {% for item in program.faq %}
+        <div class="col-6 question">
+            <h3 class="title">{{ item.question }}</h3>
+            <p class="answer">{{ item.answer }}</p>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</div>
+{% endblock %}

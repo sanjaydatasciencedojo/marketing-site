@@ -1,23 +1,27 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var sassMiddleware = require('node-sass-middleware');
-var nunjucks = require('nunjucks');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const nunjucks = require('nunjucks');
+const path = require('path');
+const sassMiddleware = require('node-sass-middleware');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
 
-var app = express();
+const app = express();
+const env = app.get('env');
+const isDev = env === 'development';
+const config = require(path.join(__dirname, 'config', 'config.json'))[env];
+const publicPath = path.join(__dirname, 'public');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 nunjucks.configure('views', {
-    autoescape: true,
-    cache: false,
-    express: app
+  autoescape: true,
+  noCache: isDev,
+  express: app
 });
 app.set('view engine', 'html');
 
@@ -25,22 +29,38 @@ app.set('view engine', 'html');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+
+
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
+  src: publicPath,
+  dest: publicPath,
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(publicPath));
+
+// Default render context
+app.use(function(req, res, next) {
+  [
+    'apiGatewayUrl',
+    'discoveryApiUrl',
+    'oauthClientId',
+    'oauthClientSecret',
+    'siteName'
+  ].forEach((key) => {
+    app.locals[key] = config[key];
+  });
+  next();
+});
+
 
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -49,11 +69,12 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = isDev ? err : {};
 
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
