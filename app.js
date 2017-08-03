@@ -5,7 +5,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const nunjucks = require('nunjucks');
 const path = require('path');
-const sassMiddleware = require('node-sass-middleware');
+// const sassMiddleware = require('node-sass-middleware');
 
 const index = require('./routes/index');
 
@@ -33,13 +33,17 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 
-app.use(sassMiddleware({
-  src: publicPath,
-  dest: publicPath,
-  indentedSyntax: true, // true = .sass and false = .scss
-  sourceMap: true
-}));
+// TODO Compile locally with Webpack
+// app.use(sassMiddleware({
+//   src: publicPath,
+//   dest: publicPath,
+//   indentedSyntax: true, // true = .sass and false = .scss
+//   sourceMap: true
+// }));
 app.use(express.static(publicPath));
+
+
+
 
 // Default render context
 app.use(function(req, res, next) {

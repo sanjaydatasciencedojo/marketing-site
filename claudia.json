@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "edx-marketing-site-frontend-executor",
+    "name": "edx-marketing-site-frontend",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "xus7flf3y2"
+  }
+}
