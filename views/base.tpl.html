@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>{{ title }} | {{ siteName }}</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- NOTE: Webpack will inject the CSS <link> tag here. -->
 </head>
 <body>
 {% block content %}{% endblock %}
+<!-- NOTE: Webpack will inject the JS <script> tag here. -->
 </body>
 </html>

@@ -3,14 +3,13 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const nunjucks = require('nunjucks');
 const path = require('path');
-// const sassMiddleware = require('node-sass-middleware');
 
 const index = require('./routes/index');
 
 const app = express();
 const env = app.get('env');
 const isDev = env === 'development';
-const config = require(path.join(__dirname, 'config', 'config.json'))[env];
+const config = require('./config/config.json')[env];
 const publicPath = path.join(__dirname, 'public');
 
 
@@ -28,18 +27,6 @@ app.set('view engine', 'html');
 app.use(logger('dev'));
 
 
-// TODO Compile locally with Webpack
-// app.use(sassMiddleware({
-//   src: publicPath,
-//   dest: publicPath,
-//   indentedSyntax: true, // true = .sass and false = .scss
-//   sourceMap: true
-// }));
-app.use(express.static(publicPath));
-
-
-
-
 // Default render context
 app.use(function(req, res, next) {
   [
@@ -54,7 +41,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-
+app.use('/static', express.static(publicPath));
 app.use('/', index);
 
 // catch 404 and forward to error handler

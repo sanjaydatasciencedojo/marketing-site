@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "watch": "webpack --watch"
   },
   "files": [
     "bin",
     "config",
-    "public",
     "routes",
     "services",
     "views",
@@ -17,17 +17,29 @@
   ],
   "dependencies": {
     "aws-serverless-express": "^3.0.2",
-    "debug": "~2.6.3",
     "express": "~4.15.2",
     "memory-cache": "^0.2.0",
     "morgan": "~1.8.1",
-    "node-sass-middleware": "0.9.8",
-    "nodemon": "^1.11.0",
     "nunjucks": "^3.0.1",
+    "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
     "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
-    "claudia": "^2.14.2"
+    "ajv": "^5.2.2",
+    "claudia": "^2.14.2",
+    "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.4",
+    "debug": "^2.6.8",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.11.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.4.1",
+    "webpack-bundle-tracker": "^0.2.0"
   }
 }
