@@ -66,6 +66,3 @@ public/stylesheets/*.css
 public/stylesheets/*.css.map
 views/base.html
 webpack-stats.json
-
-# TODO Determine how to allow private configuration
-config/config.json

@@ -7,10 +7,10 @@ router.get('/:programType(micromasters|professional-certificate|xseries)/:market
     // TODO Catch not found errors, and render the 404 page.
     const locals = req.app.locals;
     const discoveryService = new DiscoveryService(
-      locals.apiGatewayUrl,
-      locals.oauthClientId,
-      locals.oauthClientSecret,
-      locals.discoveryApiUrl
+      locals.API_GATEWAY_URL,
+      locals.OAUTH_CLIENT_ID,
+      locals.OAUTH_CLIENT_SECRET,
+      locals.DISCOVERY_API_URL
     );
     discoveryService.getProgram(req.params.programType, req.params.marketingSlug)
       .then((programData) => {

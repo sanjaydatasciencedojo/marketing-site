@@ -6,10 +6,14 @@ const path = require('path');
 
 const index = require('./routes/index');
 
+// Load environment variables from .nev files
+// See https://www.npmjs.com/package/dotenv
+require('dotenv').config();
+
+
 const app = express();
 const env = app.get('env');
 const isDev = env === 'development';
-const config = require('./config/config.json')[env];
 const publicPath = path.join(__dirname, 'public');
 
 
@@ -30,13 +34,13 @@ app.use(logger('dev'));
 // Default render context
 app.use(function(req, res, next) {
   [
-    'apiGatewayUrl',
-    'discoveryApiUrl',
-    'oauthClientId',
-    'oauthClientSecret',
-    'siteName'
+    'API_GATEWAY_URL',
+    'DISCOVERY_API_URL',
+    'OAUTH_CLIENT_ID',
+    'OAUTH_CLIENT_SECRET',
+    'SITE_NAME'
   ].forEach((key) => {
-    app.locals[key] = config[key];
+    app.locals[key] = process.env[key];
   });
   next();
 });
