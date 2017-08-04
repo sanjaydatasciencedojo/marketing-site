@@ -13,3 +13,7 @@ Run Webpack in watch mode:
 Run the webserver:
 
     $ npm start
+
+## Deployment
+
+    $ npm run deploy
