@@ -1,6 +1,6 @@
 # edx-marketing-site-frontend
 
-## Getting Started
+## Development
 
 Install all dependencies:
 
@@ -15,5 +15,11 @@ Run the webserver:
     $ npm start
 
 ## Deployment
+
+Static assets are compiled by Webpack and pushed to S3.
+
+    $ npm run build
+
+Application code is deployed to AWS API Gateway + Lambda (server code) using [ClaudiaJS](https://claudiajs.com/). 
 
     $ npm run deploy

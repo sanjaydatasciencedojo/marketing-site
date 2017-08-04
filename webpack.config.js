@@ -3,20 +3,23 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const webpack = require('webpack');
+const S3Plugin = require('webpack-s3-plugin');
 
-const outputPath = './public/bundles/';
 const baseTemplatePath = './views/base.html';
+const outputPath = './public/bundles/';
+const publicPath = 'static/bundles/';
 
+const isProduction = process.env.NODE_ENV === 'production';
 const pathsToClean = [
-    outputPath,
-    baseTemplatePath
+  outputPath,
+  baseTemplatePath
 ];
-
-module.exports = {
+const config = {
   cache: true,
 
   context: __dirname,
+
+  devtool: 'source-map',
 
   entry: {
     'main.style': './public/stylesheets/main.scss',
@@ -25,17 +28,34 @@ module.exports = {
   output: {
     path: path.resolve(outputPath),
     filename: '[name]-[hash].js',
-    publicPath: '/static/bundles',
+    publicPath: `/${publicPath}`,
   },
 
   plugins: [
-    new CleanWebpackPlugin(pathsToClean, { watch: true }),
+    new CleanWebpackPlugin(pathsToClean, {watch: true}),
     new BundleTracker({filename: './webpack-stats.json'}),
     new ExtractTextPlugin('[name]-[hash].css'),
     new HtmlWebpackPlugin({
       filename: path.resolve(baseTemplatePath),
       inject: 'body',
       template: 'views/base.tpl.html'
+    }),
+    new FaviconsWebpackPlugin({
+      logo: './public/images/favicon.png',
+      prefix: 'icons-[hash]/',
+      inject: true,
+      icons: {
+        android: false,
+        appleIcon: true,
+        appleStartup: false,
+        coast: false,
+        favicons: true,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false
+      },
     }),
   ],
 
@@ -48,11 +68,15 @@ module.exports = {
             {
               loader: 'css-loader',
               options: {
-                minimize: true
+                minimize: isProduction,
+                sourceMap: true,
               }
             },
             {
-              loader: 'sass-loader'
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
             }
           ]
         })
@@ -81,3 +105,23 @@ module.exports = {
     extensions: ['.css', '.scss']
   }
 };
+
+if (isProduction) {
+  config.output.publicPath = `${process.env.CDN_ROOT}/${publicPath}`;
+  config.plugins.push(
+    new S3Plugin({
+      basePath: publicPath,
+      include: /.*\.(css|js|map|ico|png)/,
+      s3Options: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+      s3UploadOptions: {
+        Bucket: process.env.S3_BUCKET_NAME,
+        // Instruct browsers to cache the assets for 1 year
+        CacheControl: 'max-age=31556926'
+      }
+    }));
+}
+
+module.exports = config;
