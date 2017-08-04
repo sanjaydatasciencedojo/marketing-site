@@ -1,0 +1,72 @@
+;var json_locale_data = {
+   "messages": {
+      "": {
+         "Project-Id-Version": " PACKAGE VERSION\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2017-08-04 18:15+0000\nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLanguage-Team: LANGUAGE <LL@li.org>\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
+      },
+      "View Courses": [
+         null,
+         "View Courses"
+      ],
+      "Meet the Instructors": [
+         null,
+         "Meet the Instructors"
+      ],
+      "The %(type)s": [
+         null,
+         "The %(type)s"
+      ],
+      "Skip the %(type)s Main Overview": [
+         null,
+         "Skip the %(type)s Main Overview"
+      ],
+      "A series of courses that add up to a rich understanding of an area of study.": [
+         null,
+         "A series of courses that add up to a rich understanding of an area of study."
+      ],
+      "A series of credit-eligible courses recognized by industry.": [
+         null,
+         "A series of credit-eligible courses recognized by industry."
+      ],
+      "A series of career-oriented courses to develop in-demand skills.": [
+         null,
+         "A series of career-oriented courses to develop in-demand skills."
+      ],
+      "See more": [
+         null,
+         "See more"
+      ],
+      "about %(title)s": [
+         null,
+         "about %(title)s"
+      ],
+      "Hide": [
+         null,
+         "Hide"
+      ],
+      "%(type)s Details": [
+         null,
+         "%(type)s Details"
+      ],
+      "About %(type)s": [
+         null,
+         "About %(type)s"
+      ],
+      "Courses": [
+         null,
+         "Courses"
+      ],
+      "Instructors": [
+         null,
+         "Instructors"
+      ],
+      "bio for %(title)s": [
+         null,
+         "bio for %(title)s"
+      ],
+      "View a PDF of a sample %(type)s Certificate": [
+         null,
+         "View a PDF of a sample %(type)s Certificate"
+      ]
+   }
+}
+;

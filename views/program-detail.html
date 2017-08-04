@@ -62,14 +62,15 @@
 <nav class="col-wrapper page-nav" aria-label="Page">
     <ul>
         <li class="col-4">
-            <a href="#courses"><%- gettext('View Courses') %></a>
+            <a href="#courses">{{ gettext('View Courses') }}</a>
         </li>
         <li class="col-4">
-            <a href="#instructors"><%- gettext('Meet the Instructors') %></a>
+            <a href="#instructors">{{ gettext('Meet the Instructors') }}</a>
         </li>
         <li class="col-4">
-            <a class="capitalize" href="#why-this-program"><%- sprintf( gettext('The %(type)s'), {type: displayType})
-                %></a>
+            <a class="capitalize" href="#why-this-program">
+                {{ format( gettext('The %(type)s'), {type: displayType}) }}
+            </a>
         </li>
     </ul>
 </nav>
@@ -77,19 +78,20 @@
 <div class="article col-wrapper">
     <section class="main-content col-8">
         <div class="overview">
-            <a href="<%- main.skipLink %>" class="element-invisible element-focusable"><%- sprintf( gettext('Skip the
-                %(type)s Main Overview'), {type: displayType}) %></a>
+            <a href="{{ main.skipLink }}" class="element-invisible element-focusable">
+                {{ format( gettext('Skip the %(type)s Main Overview'), {type: displayType}) }}
+            </a>
             <div class="see-more-content" tabindex="-1">
                 <h3 class="program-logo-wrapper">
-                    <% if (programLogo) { %>
-                    <div class="program-logo"><%= programLogo %></div>
-                    <% } %>
+                    <% if (programLogo) { }}
+                    <div class="program-logo"><%= programLogo }}</div>
+                    <% } }}
                     {% if program.type.toLowerCase() === 'xseries' %}
-                    <span class="program-logo-context"><%- gettext('A series of courses that add up to a rich understanding of an area of study.') %></span>
+                    <span class="program-logo-context">{{ gettext('A series of courses that add up to a rich understanding of an area of study.') }}</span>
                     {% elif program.type.toLowerCase() === 'micromasters' %}
-                    <span class="program-logo-context"><%- gettext('A series of credit-eligible courses recognized by industry.') %></span>
+                    <span class="program-logo-context">{{ gettext('A series of credit-eligible courses recognized by industry.') }}</span>
                     {% elif program.type.toLowerCase() === 'professional certificate' %}
-                    <span class="professional-certificate-context program-logo-context"><%- gettext('A series of career-oriented courses to develop in-demand skills.') %></span>
+                    <span class="professional-certificate-context program-logo-context">{{ gettext('A series of career-oriented courses to develop in-demand skills.') }}</span>
                     {% endif %}
                 </h3>
                 <div>{{ program.overview | safe }}</div>
@@ -101,9 +103,9 @@
                     <span class="fa fa-circle-o fa-stack-1x"></span>
                     <span class="fa fa-plus fa-stack-1x"></span>
                   </span>
-                  <%- gettext('See more') %>
+                  {{ gettext('See more') }}
                   <span class="is-visually-hidden">
-                    <%- sprintf(gettext('about %(title)s'), {title: title}) %>
+                    {{ format(gettext('about %(title)s'), {title: title}) }}
                   </span>
                 </span>
 
@@ -112,7 +114,7 @@
                     <span class="fa fa-circle-o fa-stack-1x"></span>
                     <span class="fa fa-minus fa-stack-1x"></span>
                   </span>
-                  <%- gettext('Hide') %>
+                  {{ gettext('Hide') }}
                 </span>
                 </a>
             </p>
@@ -184,26 +186,26 @@
 
     </section>
     <aside class="aside js-program-details-sidebar col-4"
-           aria-label="<%- sprintf( gettext('%(type)s Details'), {type: type}) %>"></aside>
+           aria-label="{{ format( gettext('%(type)s Details'), {type: type}) }}"></aside>
 
     <aside id="why-this-program" class="aside program-aside col-4"
-           aria-label="<%- sprintf( gettext('About %(type)s'), {type: type}) %>">
-        <h2><%- whyThisProgram.title %></h2>
-        <p><%- whyThisProgram.content %></p>
-        <a href="<%- whyThisProgram.cta.url %>"><%- whyThisProgram.cta.text %></a>
+           aria-label="{{ format( gettext('About %(type)s'), {type: type}) }}">
+        <h2>{{ whyThisProgram.title }}</h2>
+        <p>{{ whyThisProgram.content }}</p>
+        <a href="{{ whyThisProgram.cta.url }}">{{ whyThisProgram.cta.text }}</a>
     </aside>
 
     <section id="courses" class="col-12 separator-top">
-        <h2><%- courseListTitle %></h2>
+        <h2>{{ gettext('Courses') }}</h2>
         <ul>
             {% for course in program.courses %}
             <li>{{ course.key}}: {{ course.title }}</li>
             {% endfor %}
         </ul>
         <% if (typeof discovery_cards.content !== 'undefined' && discovery_cards.content &&
-        discovery_cards.content.length > 0) { %>
-        <%= discovery_cards.content %>
-        <% } %>
+        discovery_cards.content.length > 0) { }}
+        <%= discovery_cards.content }}
+        <% } }}
         <div class="js-discovery-card-list discovery-card-list"></div>
     </section>
     <section class="col-12 one-click-purchase">
@@ -211,7 +213,7 @@
     </section>
     {% if program.staff %}
     <section id="instructors" class="col-12 separator-top">
-        <h2><%- gettext('Instructors') %></h2>
+        <h2>{{ gettext('Instructors') }}</h2>
 
         <ul class="clear-list list-instructors clearfix">
             {% for person in program.staff %}
@@ -219,7 +221,7 @@
                 <a href="/bio/{{ person.slug }}">
                     <img src="{{ person.profile_image_url }}"
                          class="instructor-img"
-                         alt="<%- sprintf(gettext('bio for %(title)s'), {title: person.given_name + person.family_name}) %>"/>
+                         alt="{{ format(gettext('bio for %(title)s'), {title: person.given_name + person.family_name}) }}"/>
                     <p class="instructor-name" aria-hidden="true">{{ person.given_name}} {{ person.family_name }}</p>
                 </a>
                 {% if person.position %}
@@ -243,7 +245,7 @@
                 <a aria-hidden="true" href="/media/example-certificate-micromasters.pdf" class="img-link"
                    target="_blank">
                     <img src="https://www.edx.org/sites/all/themes/atedx/images/cert-selection.png"
-                         alt="<%- sprintf( gettext('View a PDF of a sample %(type)s Certificate'), {type: displayType}) %>">
+                         alt="{{ format( gettext('View a PDF of a sample %(type)s Certificate'), {type: displayType}) }}">
                 </a>
                 <a href="/media/example-certificate-micromasters.pdf" target="_blank">View Sample Certificate</a>
             </div>

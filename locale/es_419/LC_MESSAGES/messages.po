@@ -1,0 +1,81 @@
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-04 18:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Juan Camilo Montoya Franco <juan.montoya@edunext.co>, 2017\n"
+"Language-Team: Spanish (Latin America) (https://www.transifex.com/open-edx/"
+"teams/6205/es_419/)\n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: views/program-detail.html:65
+msgid "View Courses"
+msgstr "Ver Cursos"
+
+#: views/program-detail.html:68
+msgid "Meet the Instructors"
+msgstr "Conoce a los Instructores"
+
+#: views/program-detail.html:72
+msgid "The %(type)s"
+msgstr ""
+
+#: views/program-detail.html:82
+msgid "Skip the %(type)s Main Overview"
+msgstr ""
+
+#: views/program-detail.html:90
+msgid ""
+"A series of courses that add up to a rich understanding of an area of study."
+msgstr ""
+
+#: views/program-detail.html:92
+msgid "A series of credit-eligible courses recognized by industry."
+msgstr ""
+
+#: views/program-detail.html:94
+msgid "A series of career-oriented courses to develop in-demand skills."
+msgstr ""
+
+#: views/program-detail.html:106
+msgid "See more"
+msgstr ""
+
+#: views/program-detail.html:108
+msgid "about %(title)s"
+msgstr ""
+
+#: views/program-detail.html:117
+msgid "Hide"
+msgstr "Ocultar"
+
+#: views/program-detail.html:189
+msgid "%(type)s Details"
+msgstr ""
+
+#: views/program-detail.html:192
+msgid "About %(type)s"
+msgstr ""
+
+#: views/program-detail.html:199
+msgid "Courses"
+msgstr "Cursos"
+
+#: views/program-detail.html:216
+msgid "Instructors"
+msgstr "Instructores"
+
+#: views/program-detail.html:224
+msgid "bio for %(title)s"
+msgstr ""
+
+#: views/program-detail.html:248
+msgid "View a PDF of a sample %(type)s Certificate"
+msgstr ""

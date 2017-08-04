@@ -1,0 +1,79 @@
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-04 18:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: views/program-detail.html:65
+msgid "View Courses"
+msgstr "View Courses"
+
+#: views/program-detail.html:68
+msgid "Meet the Instructors"
+msgstr "Meet the Instructors"
+
+#: views/program-detail.html:72
+msgid "The %(type)s"
+msgstr "The %(type)s"
+
+#: views/program-detail.html:82
+msgid "Skip the %(type)s Main Overview"
+msgstr "Skip the %(type)s Main Overview"
+
+#: views/program-detail.html:90
+msgid ""
+"A series of courses that add up to a rich understanding of an area of study."
+msgstr ""
+"A series of courses that add up to a rich understanding of an area of study."
+
+#: views/program-detail.html:92
+msgid "A series of credit-eligible courses recognized by industry."
+msgstr "A series of credit-eligible courses recognized by industry."
+
+#: views/program-detail.html:94
+msgid "A series of career-oriented courses to develop in-demand skills."
+msgstr "A series of career-oriented courses to develop in-demand skills."
+
+#: views/program-detail.html:106
+msgid "See more"
+msgstr "See more"
+
+#: views/program-detail.html:108
+msgid "about %(title)s"
+msgstr "about %(title)s"
+
+#: views/program-detail.html:117
+msgid "Hide"
+msgstr "Hide"
+
+#: views/program-detail.html:189
+msgid "%(type)s Details"
+msgstr "%(type)s Details"
+
+#: views/program-detail.html:192
+msgid "About %(type)s"
+msgstr "About %(type)s"
+
+#: views/program-detail.html:199
+msgid "Courses"
+msgstr "Courses"
+
+#: views/program-detail.html:216
+msgid "Instructors"
+msgstr "Instructors"
+
+#: views/program-detail.html:224
+msgid "bio for %(title)s"
+msgstr "bio for %(title)s"
+
+#: views/program-detail.html:248
+msgid "View a PDF of a sample %(type)s Certificate"
+msgstr "View a PDF of a sample %(type)s Certificate"
