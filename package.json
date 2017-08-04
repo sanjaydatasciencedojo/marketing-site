@@ -5,7 +5,7 @@
   "scripts": {
     "build": "NODE_ENV=production AWS_PROFILE=claudia CDN_ROOT=https://d17shfn88f2e0o.cloudfront.net S3_BUCKET_NAME=clintonb-edx-marketing webpack -p",
     "deploy": "AWS_PROFILE=claudia claudia update",
-    "start": "node ./bin/www",
+    "start": "nodemon --watch . --watch .env ./bin/www",
     "watch": "webpack --watch"
   },
   "files": [
