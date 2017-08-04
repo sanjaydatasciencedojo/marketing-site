@@ -1,5 +1,4 @@
 const express = require('express');
-const favicon = require('serve-favicon');
 const logger = require('morgan');
 const nunjucks = require('nunjucks');
 const path = require('path');
@@ -26,8 +25,6 @@ nunjucks.configure('views', {
 });
 app.set('view engine', 'html');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger(isDev ? 'dev' : 'combined'));
 
 
