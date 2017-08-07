@@ -26,7 +26,7 @@ const config = {
   devtool: 'source-map',
 
   entry: {
-    'main.style': './public/stylesheets/main.scss',
+    'app': './public/js/app.js',
   },
 
   output: {
@@ -123,7 +123,7 @@ const config = {
   },
   resolve: {
     modules: ['./node_modules'],
-    extensions: ['.css', '.scss']
+    extensions: ['.js', '.css', '.scss']
   }
 };
 

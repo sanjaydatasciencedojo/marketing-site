@@ -9,7 +9,9 @@
     <!-- NOTE: Webpack will inject the CSS and icon <link> tags here. -->
 </head>
 <body>
+{% block navbar %} {% include "_navbar.html" %} {% endblock %}
 {% block content %}{% endblock %}
+
 <!-- NOTE: Webpack will inject the JS <script> tag here. -->
 </body>
 </html>
