@@ -1,7 +1,6 @@
 const BundleTracker = require('webpack-bundle-tracker');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const glob = require('glob');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
@@ -61,23 +60,25 @@ const config = {
       // See https://github.com/GoogleChrome/preload-webpack-plugin/issues/18 for updates.
       fileBlacklist: [/\.(css|map)/]
     }),
-    new FaviconsWebpackPlugin({
-      logo: './public/images/favicon.png',
-      prefix: 'icons-[hash]/',
-      inject: true,
-      icons: {
-        android: false,
-        appleIcon: true,
-        appleStartup: false,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        opengraph: false,
-        twitter: false,
-        yandex: false,
-        windows: false
-      },
-    }),
+    // FIXME The 64x64 .ico file is 32KB. This is unnaceptable. Until this is resolved, we will manually handle
+    // these files.
+    // new FaviconsWebpackPlugin({
+    //   logo: './public/images/favicon.png',
+    //   prefix: 'icons-[hash]/',
+    //   inject: true,
+    //   icons: {
+    //     android: false,
+    //     appleIcon: true,
+    //     appleStartup: false,
+    //     coast: false,
+    //     favicons: true,
+    //     firefox: false,
+    //     opengraph: false,
+    //     twitter: false,
+    //     yandex: false,
+    //     windows: false
+    //   },
+    // }),
   ],
 
   module: {

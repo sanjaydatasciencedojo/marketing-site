@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>{{ title }} | {{ SITE_NAME }}</title>
+
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/images/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/images/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+
     {% block head_extra %}{% endblock %}
+
     <!-- NOTE: Webpack will inject the CSS and icon <link> tags here. -->
 </head>
 <body>
