@@ -78,6 +78,8 @@ app.use(function(req, res, next) {
     'DISCOVERY_API_URL',
     'OAUTH_CLIENT_ID',
     'OAUTH_CLIENT_SECRET',
+    'OPTIMIZELY_SCRIPT_SRC',
+    'SEGMENT_KEY',
     'SITE_NAME'
   ].forEach((key) => {
     app.locals[key] = process.env[key];
