@@ -3,6 +3,5 @@
 -r docs.txt
 
 django-debug-toolbar
-docker-compose >= 1.7.1
 edx-i18n-tools==0.4.1
 transifex-client
